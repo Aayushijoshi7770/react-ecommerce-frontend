@@ -22,15 +22,18 @@ export default function Todo(){
     }
     const editTodo=(index:number)=>{
        setIndex(index);
-       setEditValue(value);
+       setEditValue(todos[index]);
     }
     const updateTodo=()=>{
         if(editvalue.trim()!=="")
         {
-            setIndex(null);
-            setEditValue("");
+           const updated=[...todos];
+           updated[editindex!]=editvalue;
+           setTodos(updated);
             
         }
+         setIndex(null);
+            setEditValue("");
     }
     const closeEdit=()=>{
         setIndex(null);
