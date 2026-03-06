@@ -41,7 +41,7 @@ export default function Todo(){
     return (<>
                  <h1 className="text-center">Todo List</h1>
                 <div className="flex items-center justify-center">
-                   <input name="todo" value={value} onChange={handleChange} type="text" placeholder="Add a todo" className="bg-gray-200 p-2 rounded border border-gray-300 focus:outline-none "/>
+                   <input name="todo" value={value} onChange={handleChange} type="text" placeholder="Add a todo" className="bg-gray-200 p-2 rounded border border-gray-300  focus:border-[#7c6af7]  outline-none transition-all duration-200 focus:ring-1 focus:ring-[#7c6af7]"/>
                    <button onClick={submitValue} className="bg-blue-500 text-white p-2 rounded ml-2 cursor-pointer">Add</button>
                 </div>
                  <div>
