@@ -1,6 +1,7 @@
 "use client";
 import { useState ,useEffect} from "react";
-import useDebounce from "../../hooks/useDebounce"
+import useDebounce from "../../hooks/useDebounce";
+import { Search } from "lucide-react";
 interface Product {
   id: number;
   title: string;
@@ -12,6 +13,7 @@ export default function product(){
 
     const [product, setProducts]=useState<Product[]>([]);
     const [search, setSearchTerm]=useState<string>("");
+    const [allProduct, setAllProduct]=useState<Product[]>([]);
 
      const debounce=useDebounce(search, 5000);
     useEffect(()=>{
@@ -19,13 +21,31 @@ export default function product(){
         const res=await fetch('https://dummyjson.com/products');
         const data = await res.json();
         setProducts(data.products);
+        setAllProduct(data.products);
      }
      fetchData();
     },[])
+    useEffect(()=>{
+         const filter =allProduct.filter((item,i)=>item.title.toLowerCase().includes(debounce.toLowerCase()))
+      setProducts(filter);
+    },[debounce])
+    const handleSearch=(e:any)=>{
+      setSearchTerm(e.target.value);
+ 
+    }
 
     return(
         <>
-        <h1>Products</h1>
+        <div className="flex justify-between px-2 py-2 items-center">
+            <div>
+        <h1 className=" text-xl font-bold text-center">Products</h1></div>
+        <div className="flex flex-end border border-gray-400 h-9 rounded w-80 p-2">
+            <div>
+            <Search className="h-4 w-4 text-gray-400" />
+            </div>
+            <input value={search} onChange={handleSearch} className=" w-full px-2 py-1 outline-none" type="text" placeholder="Search"/>
+        </div>
+        </div>
         <div className="flex flex-wrap gap-2 px-4 py-2">
         {product.length>0?product.map((item, index)=>{
             return(
