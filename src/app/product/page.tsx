@@ -1,5 +1,6 @@
 "use client";
 import { useState ,useEffect} from "react";
+import useDebounce from "../../hooks/useDebounce"
 interface Product {
   id: number;
   title: string;
@@ -10,6 +11,9 @@ interface Product {
 export default function product(){
 
     const [product, setProducts]=useState<Product[]>([]);
+    const [search, setSearchTerm]=useState<string>("");
+
+     const debounce=useDebounce(search, 5000);
     useEffect(()=>{
      const fetchData=async()=>{
         const res=await fetch('https://dummyjson.com/products');
